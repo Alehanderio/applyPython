@@ -16,7 +16,7 @@ for i in range(lenTemp):
 
 print("Fill second array: ")
 for i in range(lenTemp):
-    int_array.append(int(input("Enter next int: ")))
+    sec_array.append(int(input("Enter next int: ")))
 
 
 res = create_dictionary(int_array, sec_array)
