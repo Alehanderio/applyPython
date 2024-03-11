@@ -32,7 +32,7 @@ while True:
 
     try:
         temp_dict = read_dicts_from_user()
-        list_of_dicts.extend(temp_dict)  # Use extend instead of append
+        list_of_dicts.extend(temp_dict)  
     except ValueError:
         print("Invalid input. Please enter dictionaries in the format key:value, separated by commas.")
 
