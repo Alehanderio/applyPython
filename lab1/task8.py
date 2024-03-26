@@ -52,12 +52,15 @@ def transliterate(dict ,text):
 
     return translit_text
 
-
+transliterated_text_res = ""
 input_text = input("Enter the text for transliteration: ")
 
-if (input_text[0] in translit_dict_eng_to_ukr):
-    transliterated_text = transliterate(translit_dict_eng_to_ukr, input_text)
-else:
-    transliterated_text = transliterate(translit_dict_ukr_to_eng, input_text)
+for curChar in input_text:
+    if curChar in translit_dict_ukr_to_eng:
+        transliterated_text_res += translit_dict_ukr_to_eng[curChar]
+    elif curChar in translit_dict_eng_to_ukr:
+        transliterated_text_res += translit_dict_eng_to_ukr[curChar]
+    else:
+        transliterated_text_res += curChar
 
-print("Transliterated text:", transliterated_text)
+print("Transliterated text:", transliterated_text_res)
