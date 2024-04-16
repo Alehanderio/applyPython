@@ -1,6 +1,6 @@
 check_point = int(input("Enter an int to be compared to: "))
 lenTemp = int(input("Enter size of an array: "))
-int_array = [lenTemp]
+int_array = []
 print("Fill the array: ")
 for i in range(lenTemp):
     int_array.append(int(input("Enter next int: ")))

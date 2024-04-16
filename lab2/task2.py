@@ -16,11 +16,8 @@ def read_dicts_from_user():
     return list_of_dicts
 
 def merge_dicts(list_of_dicts):
-    result_dict = {}
-    for dictionary in list_of_dicts:
-        result_dict.update(dictionary)
+    return {key: value for dictionary in list_of_dicts for key, value in dictionary.items()}
 
-    return result_dict
 
 list_of_dicts = []
 

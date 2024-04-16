@@ -8,8 +8,8 @@ def create_dictionary(list1, list2):
 
 
 lenTemp = int(input("Enter an integer: "))
-int_array = [lenTemp]
-sec_array = [lenTemp]
+int_array = []
+sec_array = []
 print("Fill first array: ")
 for i in range(lenTemp):
     int_array.append(int(input("Enter next int: ")))
