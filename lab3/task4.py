@@ -23,7 +23,7 @@ def main():
     with open("word_length_stats.json", "w") as file:
         json.dump(word_length_stats, file, indent=4)
 
-    print("Writen successfulyy to the fiile word_length_stats.json")
+    print("Writen successfuly to the fiile word_length_stats.json")
 
 if __name__ == "__main__":
     main()

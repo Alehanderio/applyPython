@@ -1,40 +1,58 @@
 from bs4 import BeautifulSoup
-import re
+import cssutils
 
-def extract_css_styles(css_file_path):
-    with open(css_file_path, 'r') as file:
-        css_content = file.read()
+def parse_css(css_file):
+    css = cssutils.parseFile(css_file)
+    rules = css.cssRules
+    css_dict = {}
 
-    css_styles = {}
-    matches = re.finditer(r'([^\{\}]+)\s*\{', css_content)
-    for match in matches:
-        selector_name = match.group(1).strip()
-        line_number = css_content.count('\n', 0, match.start()) + 1
-        css_styles.setdefault(selector_name, []).append(line_number)
+    for rule in rules:
+        if rule.type == rule.STYLE_RULE:
+            selectors = rule.selectorText.split(',')
+            for selector in selectors:
+                selector = selector.strip()
+                if selector not in css_dict:
+                    css_dict[selector] = []
+                css_dict[selector].append(rule.style)
 
-    return css_styles
+    return css_dict
 
-def extract_html_tags(html_file_path):
-    with open(html_file_path, 'r') as file:
-        html_content = file.read()
+def parse_html(html_file, css_dict):
+    with open(html_file, 'r') as f:
+        html_content = f.read()
 
-    tags = re.findall(r'<([a-zA-Z0-9]+)[\s>]', html_content)
-    return tags
+    soup = BeautifulSoup(html_content, 'html.parser')
+    elements = soup.find_all(True)
 
-def main(html_file_path, css_file_path):
-    css_styles = extract_css_styles(css_file_path)
-    html_tags = extract_html_tags(html_file_path)
+    result = {}
 
-    tag_styles = {}
-    for selector, line_numbers in css_styles.items():
-        for tag in html_tags:
-            if tag in selector:
-                tag_styles.setdefault(tag, []).extend(line_numbers)
+    for element in elements:
+        for css_selector, css_styles in css_dict.items():
+            if element.name in css_selector or \
+                (css_selector.startswith('.') and css_selector[1:] in element.get('class', [])) or \
+                (css_selector.startswith('#') and css_selector[1:] == element.get('id', '')):
+                if css_selector not in result:
+                    result[css_selector] = []
+                result[css_selector].append([element.name, element.sourceline])
 
-    return tag_styles
+    return result
+
+def main():
+    css_file_path = input("Введіть шлях до CSS файлу: ")
+    html_file_path = input("Введіть шлях до HTML файлу: ")
+
+    css_dict = parse_css(css_file_path)
+    result = parse_html(html_file_path, css_dict)
+    
+    # Конвертуємо результат у потрібний формат
+    formatted_result = {}
+    for selector, elements in result.items():
+        formatted_result[selector] = []
+        for element in elements:
+            tag, line = element
+            formatted_result[selector].append([tag, line])
+
+    print(formatted_result)
 
 if __name__ == "__main__":
-    html_file_path = input("Enter the path to the HTML file: ")
-    css_file_path = input("Enter the path to the CSS file: ")
-    styles_dict = main(html_file_path, css_file_path)
-    print(styles_dict)
+    main()
