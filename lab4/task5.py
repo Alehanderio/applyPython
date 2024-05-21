@@ -9,7 +9,7 @@ class Transfer(Transaction):
         self.amount = amount
     
     def process(self):
-        print(f"Переказ {self.amount} з {self.from_account} на {self.to_account}")
+        print(f"Transfer {self.amount} $ from {self.from_account} to {self.to_account}")
 
 class Payment(Transaction):
     def __init__(self, account, amount):
@@ -17,20 +17,20 @@ class Payment(Transaction):
         self.amount = amount
     
     def process(self):
-        print(f"Платіж {self.amount} з {self.account}")
+        print(f"Payment {self.amount} from {self.account}")
 
 class Statement(Transaction):
     def __init__(self, account):
         self.account = account
     
     def process(self):
-        print(f"Виписка для {self.account}")
+        print(f"Statement for {self.account}")
 
-# Приклад використання
+# example 
 transactions = [
-    Transfer("Рахунок 1", "Рахунок 2", 100),
-    Payment("Рахунок 3", 50),
-    Statement("Рахунок 4")
+    Transfer("123456", "654321", 100),
+    Payment("111223", 50),
+    Statement("432221")
 ]
 
 for transaction in transactions:

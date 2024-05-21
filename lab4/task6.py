@@ -12,7 +12,7 @@ class Fiction(Book):
         self.genre = genre
     
     def display_info(self):
-        print(f"Художня книга: {self.title} автора {self.author}, жанр: {self.genre}")
+        print(f"Fiction book: {self.title} by {self.author}, genre: {self.genre}")
 
 class Science(Book):
     def __init__(self, title, author, field):
@@ -20,7 +20,7 @@ class Science(Book):
         self.field = field
     
     def display_info(self):
-        print(f"Наукова книга: {self.title} автора {self.author}, галузь: {self.field}")
+        print(f"Science book: {self.title} by {self.author}, field: {self.field}")
 
 class Children(Book):
     def __init__(self, title, author, age_range):
@@ -28,12 +28,12 @@ class Children(Book):
         self.age_range = age_range
     
     def display_info(self):
-        print(f"Дитяча книга: {self.title} автора {self.author}, вікова категорія: {self.age_range}")
+        print(f"Children's book: {self.title} by {self.author}, age range: {self.age_range}")
 
 books = [
-    Fiction("Гра престолів", "Джордж Мартін", "фентезі"),
-    Science("Космічний експрес", "Стефен Хокінг", "астрофізика"),
-    Children("Гаррі Поттер і філософський камінь", "Джоан Роулінг", "6-10 років")
+    Fiction("A Game of Thrones", "George R.R. Martin", "fantasy"),
+    Science("A Brief History of Time", "Stephen Hawking", "astrophysics"),
+    Children("Harry Potter and the Philosopher's Stone", "J.K. Rowling", "6-10 years")
 ]
 
 for book in books:
